@@ -1,0 +1,294 @@
+library: /exports/chemimm/dual_CRISPR_reference/transporter_activation/ACT_align_reference.prelib
+species: homo_sapiens
+assembly: hg19
+
+CLUSTER_YAML: './cluster.yaml'
+
+sgrnas:
+    # estimate sgRNA knockout efficiency during EM-procedure of MAGeCK-MLE
+    update-efficiency: false
+    # trim the 5 prime end to get rid of barcode sequences in the reads
+    trim-5: AUTO
+    # specify the length of the sgRNAs (without PAM sequence)
+    len: AUTO
+    # sequencing adapter that shall be removed from reads before processing with MAGeCK (optional)
+    adapter: ATCTTGTGGAAAGGACGAAACACCG
+    scaffold: GTTTTAGAGCTAGGCCAACA
+    # Use pre-computed sgrnas to annotate the library? By default it's false. 
+    # Only certain assemblies (hg19, hg38, mm9, mm10) and certain sgRNA length (19, 20) are supported
+    annotate-sgrna: false
+    # Use pre-computed sgrna efficiency as an initial value of knockout efficiency?
+    # Need to set annotate-sgrna to true as well. 
+    # If you need the sgRNA efficiency to be updated, set update-efficiency to true
+    annotate-sgrna-efficiency: false
+
+# ATTENTION: You should and only should choose one type of input file between "samples" and "counts".
+# Configuration of samples (Cannot set "counts" as valid at the same time!)
+samples:
+    # provide a label and a paths to the fastq files for each sample
+    Act_con_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1actcon_EKDL210009433-1a-A62_HTVTLDSX2_L3_1.fq.gz
+    Act_con_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2actcon_EKDL210009434-1a-A62_HTCKHDSX2_L3_1.fq.gz
+    Act_con_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3actcon_EKDL210009435-1a-A62_HTVTLDSX2_L4_1.fq.gz
+    Act_Amr_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1Amrulow_EKDL210009433-1a-AK3902_HTVTLDSX2_L3_1.fq.gz
+    Act_Amr_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2Amrulow_EKDL210009434-1a-AK3902_HTCKHDSX2_L3_1.fq.gz
+    Act_Amr_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3Amrulow_EKDL210009435-1a-AK3902_HTVTLDSX2_L4_1.fq.gz
+    Act_Amr_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1Amruhi_EKDL210009433-1a-AK2476_HTVTLDSX2_L3_1.fq.gz
+    Act_Amr_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2Amruhi_EKDL210009434-1a-AK2476_HTCKHDSX2_L3_1.fq.gz
+    Act_Amr_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3Amruhi_EKDL210009435-1a-AK2476_HTVTLDSX2_L4_1.fq.gz
+    Act_dauno_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1daunolow_EKDL210009433-1a-AK443_HTVTLDSX2_L3_1.fq.gz
+    Act_dauno_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2daunolow_EKDL210009434-1a-AK443_HTCKHDSX2_L3_1.fq.gz
+    Act_dauno_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3daunolow_EKDL210009435-1a-AK443_HTVTLDSX2_L4_1.fq.gz
+    Act_dauno_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1daunohi_EKDL210009433-1a-AK4056_HTVTLDSX2_L3_1.fq.gz
+    Act_dauno_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2daunohi_EKDL210009434-1a-AK4056_HTCKHDSX2_L3_1.fq.gz
+    Act_dauno_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3daunohi_EKDL210009435-1a-AK4056_HTVTLDSX2_L4_1.fq.gz
+    Act_dime_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1dimelow_EKDL210009433-1a-A58_HTVTLDSX2_L3_1.fq.gz
+    Act_dime_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2dimelow_EKDL210009436-1a-A58_HTC3FDSX2_L3_1.fq.gz
+    Act_dime_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3dimelow_EKDL210009435-1a-A58_HTVTLDSX2_L4_1.fq.gz
+    Act_dime_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1dimehi_EKDL210009433-1a-A59_HTVTLDSX2_L3_1.fq.gz
+    Act_dime_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2dimehi_EKDL210009434-1a-A59_HTCKHDSX2_L3_1.fq.gz
+    Act_dime_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3dimehi_EKDL210009435-1a-A59_HTVTLDSX2_L4_1.fq.gz
+    Act_doxil_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1doxillow_EKDL210009433-1a-AK4057_HTVTLDSX2_L3_1.fq.gz
+    Act_doxil_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2doxillow_EKDL210009434-1a-AK4057_HTCKHDSX2_L3_1.fq.gz
+    Act_doxil_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3doxillow_EKDL210009435-1a-AK4057_HTVTLDSX2_L4_1.fq.gz
+    Act_doxil_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1doxilhi_EKDL210009433-1a-AK1327_HTVTLDSX2_L3_1.fq.gz
+    Act_doxil_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2doxilhi_EKDL210009434-1a-AK1327_HTCKHDSX2_L3_1.fq.gz
+    Act_doxil_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3doxilhi_EKDL210009435-1a-AK1327_HTVTLDSX2_L4_1.fq.gz
+    Act_ida_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1idalow_EKDL210009433-1a-AK4055_HTVTLDSX2_L3_1.fq.gz
+    Act_ida_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2idalow_EKDL210009434-1a-AK4055_HTCKHDSX2_L3_1.fq.gz
+    Act_ida_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3idalow_EKDL210009435-1a-AK4055_HTVTLDSX2_L4_1.fq.gz
+    Act_ida_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1idahi_EKDL210009433-1a-AK7248_HTVTLDSX2_L3_1.fq.gz
+    Act_ida_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2idahi_EKDL210009434-1a-AK7248_HTCKHDSX2_L3_1.fq.gz
+    Act_ida_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3idahi_EKDL210009435-1a-AK7248_HTVTLDSX2_L4_1.fq.gz
+    Act_sunit_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1sunitiniblow_EKDL210009433-1a-A60_HTVTLDSX2_L3_1.fq.gz
+    Act_sunit_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2sunitiniblow_EKDL210009434-1a-A60_HTCKHDSX2_L3_1.fq.gz
+    Act_sunit_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3sunitiniblow_EKDL210009435-1a-A60_HTVTLDSX2_L4_1.fq.gz
+    Act_sunit_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1sunitinibhi_EKDL210009433-1a-A61_HTVTLDSX2_L3_1.fq.gz
+    Act_sunit_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2sunitinibhi_EKDL210009434-1a-A61_HTCKHDSX2_L3_1.fq.gz
+    Act_sunit_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3sunitinibhi_EKDL210009435-1a-A61_HTVTLDSX2_L4_1.fq.gz
+
+# Provide paired fastq files if pair-end sequencing data is available.
+paired:
+    # provide a label and a paths to the paired fastq files for each sample
+    Act_con_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1actcon_EKDL210009433-1a-A62_HTVTLDSX2_L3_2.fq.gz
+    Act_con_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2actcon_EKDL210009434-1a-A62_HTCKHDSX2_L3_2.fq.gz
+    Act_con_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3actcon_EKDL210009435-1a-A62_HTVTLDSX2_L4_2.fq.gz
+    Act_Amr_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1Amrulow_EKDL210009433-1a-AK3902_HTVTLDSX2_L3_2.fq.gz
+    Act_Amr_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2Amrulow_EKDL210009434-1a-AK3902_HTCKHDSX2_L3_2.fq.gz
+    Act_Amr_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3Amrulow_EKDL210009435-1a-AK3902_HTVTLDSX2_L4_2.fq.gz
+    Act_Amr_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1Amruhi_EKDL210009433-1a-AK2476_HTVTLDSX2_L3_2.fq.gz
+    Act_Amr_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2Amruhi_EKDL210009434-1a-AK2476_HTCKHDSX2_L3_2.fq.gz
+    Act_Amr_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3Amruhi_EKDL210009435-1a-AK2476_HTVTLDSX2_L4_2.fq.gz
+    Act_dauno_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1daunolow_EKDL210009433-1a-AK443_HTVTLDSX2_L3_2.fq.gz
+    Act_dauno_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2daunolow_EKDL210009434-1a-AK443_HTCKHDSX2_L3_2.fq.gz
+    Act_dauno_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3daunolow_EKDL210009435-1a-AK443_HTVTLDSX2_L4_2.fq.gz
+    Act_dauno_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1daunohi_EKDL210009433-1a-AK4056_HTVTLDSX2_L3_2.fq.gz
+    Act_dauno_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2daunohi_EKDL210009434-1a-AK4056_HTCKHDSX2_L3_2.fq.gz
+    Act_dauno_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3daunohi_EKDL210009435-1a-AK4056_HTVTLDSX2_L4_2.fq.gz
+    Act_dime_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1dimelow_EKDL210009433-1a-A58_HTVTLDSX2_L3_2.fq.gz
+    Act_dime_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2dimelow_EKDL210009436-1a-A58_HTC3FDSX2_L3_2.fq.gz
+    Act_dime_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3dimelow_EKDL210009435-1a-A58_HTVTLDSX2_L4_2.fq.gz
+    Act_dime_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1dimehi_EKDL210009433-1a-A59_HTVTLDSX2_L3_2.fq.gz
+    Act_dime_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2dimehi_EKDL210009434-1a-A59_HTCKHDSX2_L3_2.fq.gz
+    Act_dime_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3dimehi_EKDL210009435-1a-A59_HTVTLDSX2_L4_2.fq.gz
+    Act_doxil_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1doxillow_EKDL210009433-1a-AK4057_HTVTLDSX2_L3_2.fq.gz
+    Act_doxil_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2doxillow_EKDL210009434-1a-AK4057_HTCKHDSX2_L3_2.fq.gz
+    Act_doxil_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3doxillow_EKDL210009435-1a-AK4057_HTVTLDSX2_L4_2.fq.gz
+    Act_doxil_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1doxilhi_EKDL210009433-1a-AK1327_HTVTLDSX2_L3_2.fq.gz
+    Act_doxil_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2doxilhi_EKDL210009434-1a-AK1327_HTCKHDSX2_L3_2.fq.gz
+    Act_doxil_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3doxilhi_EKDL210009435-1a-AK1327_HTVTLDSX2_L4_2.fq.gz
+    Act_ida_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1idalow_EKDL210009433-1a-AK4055_HTVTLDSX2_L3_2.fq.gz
+    Act_ida_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2idalow_EKDL210009434-1a-AK4055_HTCKHDSX2_L3_2.fq.gz
+    Act_ida_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3idalow_EKDL210009435-1a-AK4055_HTVTLDSX2_L4_2.fq.gz
+    Act_ida_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1idahi_EKDL210009433-1a-AK7248_HTVTLDSX2_L3_2.fq.gz
+    Act_ida_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2idahi_EKDL210009434-1a-AK7248_HTCKHDSX2_L3_2.fq.gz
+    Act_ida_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3idahi_EKDL210009435-1a-AK7248_HTVTLDSX2_L4_2.fq.gz
+    Act_sunit_low_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1sunitiniblow_EKDL210009433-1a-A60_HTVTLDSX2_L3_2.fq.gz
+    Act_sunit_low_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2sunitiniblow_EKDL210009434-1a-A60_HTCKHDSX2_L3_2.fq.gz
+    Act_sunit_low_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3sunitiniblow_EKDL210009435-1a-A60_HTVTLDSX2_L4_2.fq.gz
+    Act_sunit_hi_rep1:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s1sunitinibhi_EKDL210009433-1a-A61_HTVTLDSX2_L3_2.fq.gz
+    Act_sunit_hi_rep2:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s2sunitinibhi_EKDL210009434-1a-A61_HTCKHDSX2_L3_2.fq.gz
+    Act_sunit_hi_rep3:
+        - /exports/archive/chemimm/Minkang_archived/fastqs_20211221_Novogene/s3sunitinibhi_EKDL210009435-1a-A61_HTVTLDSX2_L4_2.fq.gz
+
+
+# Specify whether report valid alignments per pair (count when both end reads mapped), when paired fastq files are provided .
+countpair: false
+
+# Instead of providing fastq files, you can also provide your own normalized (or unnormalized) count matrix (Cannot set "samples" as valid at the same time!).
+# If you do not want MAGeCK to normalize the counts, make sure to set up norm_methd to none
+# Support QC from count matrix
+# counts: rawcount/rawcount.txt
+
+# Provide mageck count --day0-label (optional). Multiple labels should be seperated with comma.
+# day0label: plasmid
+
+
+# Provide normalization methods (none, control, median) and a list of negative control sgrnas (if norm_method=control). 
+# These parameters will be applied to mageck_count, mageck_rra and mageck_mle modules.
+# Note that if this option is not specified a default median normalization will be used.
+norm_method: control
+# control_sgrna: lib/hg19_library_1.aavs1.txt
+additional_rra_parameter: --normcounts-to-file --adjust-method fdr --remove-zero treatment --gene-lfc-method alphamedian --gene-test-fdr-threshold 0.05 --sort-criteria "pos" --pdf-report
+#additional_rra_parameter: --sort-criteria "pos" --pdf-report
+
+# Run mle with multi-thread. Default thread number is 1.
+# When this parameter is set (e.g., threads: 4), make sure to specify the cores in running snakemake (snakemake --cores 4)
+# threads: 4
+
+# Provide a batch matrix if the samples need to be batch corrected (optional).
+# The format should be as follows (tab-separated):
+# sample          batch   covariate 1 ...
+# Sample 1        1       0           ...
+# Sample 2        2       0           ...
+# Sample 3        2       1           ...
+#
+# The first column must refer to the samples defined above.
+# batchmatrix: path/to/batchmatrix.txt
+#
+
+# copy number variation correction
+# Setting correct_cnv to true will allow CNV correction for both RRA and MLE
+# to overwrite this option, you can use snakemake command line:
+# snakemake --config correct_cnv=true cnv_norm=target/cnv/file
+# correct_cnv: false
+# cnv_norm: /dev/null
+
+# the following cnv_cell_line is only required when performing CNV correction in RRA
+# it's not required for MLE
+# cnv_cell_line: K562
+
+# Configuration of experiments.
+# An experiment defines the comparison that shall be analyzed with MAGeCK.
+# You can define as many experiments as you want.
+# You can define either MAGeCK-RRA or MAGeCK-MLE experiments, but cannot define both in a single configuration file.
+experiments:
+    # provide a descriptive name for your experiment (it will show up in VISPR)
+    "mle":
+        # This is a MAGeCK-MLE experiment.
+        # Here, users can either specify a day0label, or a design matrix file (see http://mageck.sourceforge.net for details).
+        # if day0label is specified, use an empty file (like /dev/null) as a design matrix file.
+        # Sample names in the design matrix must refer to the samples defined above.
+        designmatrix: /dev/null
+    "rra":
+        # This is a MAGeCK-RRA experiment.
+        # You must specify treatment and control samples.
+        # The sample names must refer to the samples defined above in the
+        # samples section.
+        treatment:
+            - Act_Amr_low_rep1
+            - Act_Amr_low_rep2
+            - Act_Amr_low_rep3
+            - Act_Amr_hi_rep1
+            - Act_Amr_hi_rep2
+            - Act_Amr_hi_rep3
+            - Act_dauno_low_rep1
+            - Act_dauno_low_rep2
+            - Act_dauno_low_rep3
+            - Act_dauno_hi_rep1
+            - Act_dauno_hi_rep2
+            - Act_dauno_hi_rep3
+            - Act_dime_low_rep1
+            - Act_dime_low_rep2
+            - Act_dime_low_rep3
+            - Act_dime_hi_rep1
+            - Act_dime_hi_rep2
+            - Act_dime_hi_rep3
+            - Act_doxil_low_rep1
+            - Act_doxil_low_rep2
+            - Act_doxil_low_rep3
+            - Act_doxil_hi_rep1
+            - Act_doxil_hi_rep2
+            - Act_doxil_hi_rep3
+            - Act_ida_low_rep1
+            - Act_ida_low_rep2
+            - Act_ida_low_rep3
+            - Act_ida_hi_rep1
+            - Act_ida_hi_rep2
+            - Act_ida_hi_rep3
+            - Act_sunit_low_rep1
+            - Act_sunit_low_rep2
+            - Act_sunit_low_rep3
+            - Act_sunit_hi_rep1
+            - Act_sunit_hi_rep2
+            - Act_sunit_hi_rep3
+        control:
+            - Act_con_rep1
+            - Act_con_rep2
+            - Act_con_rep3

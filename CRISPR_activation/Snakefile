@@ -1,0 +1,92 @@
+"""
+CRISPR/Cas9 based gene knock-out screen analysis workflow using MAGeCK.
+"""
+
+configfile: "config.yaml"
+
+localrules: all
+
+import glob
+import yaml
+import os
+import numpy
+from scripts.helper import (postprocess_config, get_norm_method)
+
+# load cluster config file
+CLUSTER = yaml.load(open(config['CLUSTER_YAML']), Loader=yaml.FullLoader)
+wd = os.getcwd()
+config["wd"] = wd
+
+#Get relative position of Snakefile from wd
+SNAKEFILE = workflow.snakefile
+SNAKEFILE_DIR = os.path.dirname(SNAKEFILE)
+config["snakefile"] = SNAKEFILE
+config["snakefile_dir"] = SNAKEFILE_DIR
+
+#Establish snakefile and environment dictionaries
+rules_dir = os.path.abspath(os.path.join(SNAKEFILE_DIR, "rules"))		#directory for additional snakefiles
+scripts_dir = os.path.abspath(os.path.join(SNAKEFILE_DIR, "scripts")) 			#directory for extra scripts used in workflow
+output_dir = os.path.abspath(os.path.join(SNAKEFILE_DIR, "results"))
+
+input_files = []
+postprocess_config(config)
+
+output_files = []
+SAMPLE_IDS=list(config["replicates"].keys())
+
+if "paired" in config:
+	output_files.extend(expand(os.path.join(output_dir,"trimmed_reads/{sample}_R1.trim.fastq"), sample=SAMPLE_IDS))
+	output_files.extend(expand(os.path.join(output_dir,"trimmed_reads/{sample}_R2.trim.fastq"), sample=SAMPLE_IDS))
+else:
+	output_files.extend(expand(os.path.join(output_dir,"trimmed_reads/{sample}.trim.fastq"), sample=SAMPLE_IDS))
+
+output_files.append(os.path.join(output_dir,"reference/ACT_align_reference.fasta"))
+output_files.append(os.path.join(output_dir,"reference/ACT_align_reference.fasta.bwt"))
+output_files.append(os.path.join(output_dir,"reference/neg_sgrna_control.txt"))
+output_files.extend(expand(os.path.join(output_dir,"alignments/{sample}.sorted.bam"), sample=SAMPLE_IDS))
+output_files.extend(expand(os.path.join(output_dir,"alignments/{sample}.sorted.bam.bai"), sample=SAMPLE_IDS))
+output_files.extend(expand(os.path.join(output_dir,"alignments/{sample}.sorted.bam.flagstat"), sample=SAMPLE_IDS))
+output_files.extend(expand(os.path.join(output_dir,"alignments_filtered/{sample}.PEaligns_filtered.tsv"), sample=SAMPLE_IDS))
+#output_files.extend(expand(os.path.join(output_dir,"alignments_filtered/{sample}.PEaligns_unpaired.tsv"), sample=SAMPLE_IDS))
+
+print(SAMPLE_IDS)
+
+REPLICATE_IDS=list(config["paired"].keys())
+print(REPLICATE_IDS)
+output_files.extend(expand(os.path.join(output_dir,"alignments_filtered/{replicate}_merged_technical_reps.tsv"), replicate=REPLICATE_IDS))
+output_files.append(os.path.join(output_dir,"counts_table/all_samples_assigned_count.csv"))
+
+CONTROL_IDS=config["experiments"]["rra"]["control"]
+CASE_IDS={}
+for id in config["experiments"]["rra"]["treatment"]:
+	if id not in CONTROL_IDS:
+		if id.split('_rep')[0] not in CASE_IDS:
+			CASE_IDS[id.split('_rep')[0]]=[]
+			CASE_IDS[id.split('_rep')[0]].append(id)
+		else:
+			CASE_IDS[id.split('_rep')[0]].append(id)
+print(CASE_IDS)
+output_files.extend(expand(os.path.join(output_dir,"screen_analysis/{case}_vs_con.gene_summary.txt"), case=CASE_IDS))
+output_files.extend(expand(os.path.join(output_dir,"screen_analysis/{case}_vs_con.sgrna_summary.txt"), case=CASE_IDS))
+output_files.extend(expand(os.path.join(output_dir,"screen_analysis/{case}_vs_con.pdf"), case=CASE_IDS))
+output_files.extend(expand(os.path.join(output_dir,"screen_analysis_plots/{case}_vs_con.mageck_rra.keep_essential_genes.pdf"), case=CASE_IDS))
+output_files.extend(expand(os.path.join(output_dir,"screen_analysis_plots/{case}_vs_con.mageck_rra.remove_essential_genes.pdf"), case=CASE_IDS))
+
+#EXTRAFILES = glob.glob(os.path.join(output_dir,"screen_analysis/extra_results/*.gene_summary.txt"))
+#EXTRAS = [os.path.basename(f).replace("_vs_con.gene_summary.txt","") for f in EXTRAFILES]
+#ALL_EXTRAS = numpy.unique(EXTRAS)
+#output_files.extend(expand(os.path.join(output_dir,"screen_analysis/extra_results/{extra}_vs_con.gene_summary.txt"), extra=ALL_EXTRAS))
+#output_files.extend(expand(os.path.join(output_dir,"screen_analysis/extra_results/{extra}_vs_con.sgrna_summary.txt"), extra=ALL_EXTRAS))
+#output_files.extend(expand(os.path.join(output_dir,"screen_analysis_plots/extra_results/{extra}_vs_con.rra.keep_essential_genes.pdf"), extra=ALL_EXTRAS))
+#output_files.extend(expand(os.path.join(output_dir,"screen_analysis_plots/extra_results/{extra}_vs_con.rra.remove_essential_genes.pdf"), extra=ALL_EXTRAS))
+
+include: os.path.join(rules_dir, "cutadapt.smk")
+include: os.path.join(rules_dir, "common.smk")
+include: os.path.join(rules_dir, "bwa.smk")
+include: os.path.join(rules_dir, "hits_assign.smk")
+include: os.path.join(rules_dir, "mageck.smk")
+#include: os.path.join(rules_dir, "mageck_extrac.smk")
+
+rule all:
+	input: output_files
+	message: "Rule all"

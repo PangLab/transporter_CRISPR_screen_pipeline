@@ -1,0 +1,31 @@
+
+if "downsample_size" in config:
+    rule down_sample:
+        input: "04aln/{sample}.F2308.sorted.bam", "04aln/{sample}.F2308.sorted.bam.bai", "04aln/{sample}.sorted.bam.flagstat"
+        output: "05downsample/100reads_per_guide/{sample}_downsample.F2308.sorted.bam", "05downsample/100reads_per_guide/{sample}_downsample.F2308.sorted.bam.bai"
+        log: "00log/{sample}_downsample.log"
+        threads: 5
+        params: jobname = "{sample}"
+        message: "downsampling for {input}"
+        run:
+                import re
+                import subprocess
+
+                with open (input[2], "r") as f:
+                        line = f.readlines()[4] # fifth line contains the number of mapped reads
+                        match_number = re.match(r'(\d.+) \+.+', line)
+                        total_reads = int(match_number.group(1))
+
+                seq_depth = 3000000  # 100 reads per guide
+                if "001-005" in input[0] or "001-008" in input[0] or "001-011" in input[0]:
+                        target_reads = seq_depth * 5 # control sample
+                else:
+                        target_reads = seq_depth
+                if total_reads > target_reads:
+                        down_rate = target_reads/total_reads
+                else:
+                        down_rate = 1
+
+                shell("sambamba view -f bam -t 5 --subsampling-seed=3 -s {rate} {inbam} | samtools sort -m 2G -@ 5 -T {outbam}.tmp > {outbam} 2> {log}".format(rate = down_rate, inbam = input[0], outbam = output[0], log = log))
+
+                shell("samtools index {outbam}".format(outbam = output[0]))

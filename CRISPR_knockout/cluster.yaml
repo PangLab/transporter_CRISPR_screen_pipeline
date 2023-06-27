@@ -1,0 +1,47 @@
+__default__:
+   account: crispr-screen-analysis
+   time: 10:00:00
+   partition: all
+   nodes: 1
+   ntasks: 1
+   cpus-per-task: 1
+   mem: 8000m
+   hint: nomultithread
+   output: logs/%x-%j.out
+   error: logs/%x-%j.err
+
+score_discovered_sites_downstream:
+   time: 24:00:00
+   cpus-per-task: 6
+   hint: multithread
+   mem: 20g
+
+score_discovered_sites_upstream:
+   time: 24:00:00
+   cpus-per-task: 6
+   hint: multithread
+   mem: 20g
+
+search_CRISPR_guide_downstream:
+   time: 24:00:00
+   cpus-per-task: 6
+   hint: multithread
+   mem: 20g
+
+search_CRISPR_guide_upstream:
+   time: 24:00:00
+   cpus-per-task: 6
+   hint: multithread
+   mem: 20g
+
+cutadapt_pe:
+   time: 04:00:00
+   cpus-per-task: 6
+   hint: multithread
+   mem: 6g
+
+bwa_map:
+   time: 16:00:00
+   cpus-per-task: 2
+   hint: multithread
+   mem: 8g

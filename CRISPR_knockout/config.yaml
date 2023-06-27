@@ -1,0 +1,360 @@
+library: /exports/chemimm/dual_CRISPR_reference/transporter_knockout/KO_align_reference.csv
+species: homo_sapiens
+assembly: hg19
+
+CLUSTER_YAML: './cluster.yaml'
+
+sgrnas:
+    # estimate sgRNA knockout efficiency during EM-procedure of MAGeCK-MLE
+    update-efficiency: false
+    # trim the 5 prime end to get rid of barcode sequences in the reads
+    trim-5: AUTO
+    # specify the length of the sgRNAs (without PAM sequence)
+    len: AUTO
+    # sequencing adapter that shall be removed from reads before processing with MAGeCK (optional)
+    adapter: ATCTTGTGGAAAGGACGAAACACCG
+    scaffold: GTTTTAGAGCTAGAAATAGC
+    # Use pre-computed sgrnas to annotate the library? By default it's false. 
+    # Only certain assemblies (hg19, hg38, mm9, mm10) and certain sgRNA length (19, 20) are supported
+    annotate-sgrna: false
+    # Use pre-computed sgrna efficiency as an initial value of knockout efficiency?
+    # Need to set annotate-sgrna to true as well. 
+    # If you need the sgRNA efficiency to be updated, set update-efficiency to true
+    annotate-sgrna-efficiency: false
+
+# ATTENTION: You should and only should choose one type of input file between "samples" and "counts".
+# Configuration of samples (Cannot set "counts" as valid at the same time!)
+samples:
+    # provide a label and a paths to the fastq files for each sample
+#    KO_con_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-001_GAGCTGAA_L002_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-001_GAGCTGAA_L004_R1.fastq.gz
+#    KO_doxil_low_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-002_GATAGACA_L004_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-002_GATAGACA_L002_R1.fastq.gz
+#    KO_doxil_hi_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-003_GCCACATA_L004_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-003_GCCACATA_L002_R1.fastq.gz
+#    KO_Am_low_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-004_GCGAGTAA_L002_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-004_GCGAGTAA_L004_R1.fastq.gz
+#    KO_Am_hi_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-005_GCTAACGA_L002_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-005_GCTAACGA_L004_R1.fastq.gz
+#    KO_acla_low_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-006_GCTCGGTA_L004_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-006_GCTCGGTA_L002_R1.fastq.gz
+#    KO_acla_hi_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-007_GGAGAACA_L004_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-007_GGAGAACA_L002_R1.fastq.gz
+#    KO_dime_low_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-008_GGTGCGAA_L004_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-008_GGTGCGAA_L002_R1.fastq.gz
+#    KO_dime_hi_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-009_GTACGCAA_L004_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-009_GTACGCAA_L002_R1.fastq.gz
+#    KO_sunit_low_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-010_GTCGTAGA_L002_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-010_GTCGTAGA_L004_R1.fastq.gz
+#    KO_sunit_hi_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-011_CTATTCAA_L002_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-011_CTATTCAA_L004_R1.fastq.gz
+#    KO_con_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-012_GAGCTGAA_L002_R1.fastq.gz
+#    KO_doxil_low_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-013_GATAGACA_L002_R1.fastq.gz
+#    KO_doxil_hi_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-014_GCCACATA_L002_R1.fastq.gz
+#    KO_Am_low_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-015_GCGAGTAA_L002_R1.fastq.gz
+#    KO_Am_hi_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-016_GCTAACGA_L002_R1.fastq.gz
+#    KO_acla_low_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-017_GCTCGGTA_L002_R1.fastq.gz
+#    KO_acla_hi_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-018_GGAGAACA_L002_R1.fastq.gz
+#    KO_dime_low_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-019_GGTGCGAA_L002_R1.fastq.gz
+#    KO_dime_hi_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-020_GTACGCAA_L002_R1.fastq.gz
+#    KO_sunit_low_rep2: 
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-021_GTCGTAGA_L002_R1.fastq.gz
+#    KO_sunit_hi_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-022_CTATTCAA_L003_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-022_CTATTCAA_L002_R1.fastq.gz
+#    KO_con_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-023_GAGCTGAA_L001_R1.fastq.gz
+#    KO_doxil_low_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-024_GATAGACA_L003_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-024_GATAGACA_L001_R1.fastq.gz
+#    KO_doxil_hi_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-025_GCCACATA_L001_R1.fastq.gz
+#    KO_Am_low_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-026_GCGAGTAA_L001_R1.fastq.gz
+#    KO_Am_hi_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-027_GCTAACGA_L001_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-027_GCTAACGA_L003_R1.fastq.gz
+#    KO_acla_low_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-028_GCTCGGTA_L001_R1.fastq.gz
+#    KO_acla_hi_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-029_GGAGAACA_L001_R1.fastq.gz
+#    KO_dime_low_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-030_GGTGCGAA_L003_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-030_GGTGCGAA_L001_R1.fastq.gz
+#    KO_dime_hi_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-031_GTACGCAA_L001_R1.fastq.gz        
+#    KO_sunit_low_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-032_GTCGTAGA_L003_R1.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-032_GTCGTAGA_L001_R1.fastq.gz
+#    KO_sunit_hi_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-033_CTATTCAA_L001_R1.fastq.gz
+    KO_rem_low_rep1:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-034_GAGCTGAA_L002_R1.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-034_GAGCTGAA_L003_R1.fastq.gz
+    KO_rem_mid_rep1:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-035_GATAGACA_L003_R1.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-035_GATAGACA_L002_R1.fastq.gz
+    KO_rem_hi_rep1:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-036_GCCACATA_L002_R1.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-036_GCCACATA_L003_R1.fastq.gz
+    KO_rem_low_rep2:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-037_GCGAGTAA_L003_R1.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-037_GCGAGTAA_L002_R1.fastq.gz
+    KO_rem_mid_rep2:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-038_GCTAACGA_L003_R1.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-038_GCTAACGA_L002_R1.fastq.gz
+    KO_rem_hi_rep2:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-039_GCTCGGTA_L003_R1.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-039_GCTCGGTA_L002_R1.fastq.gz
+    KO_rem_low_rep3:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-040_GGAGAACA_L003_R1.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-040_GGAGAACA_L002_R1.fastq.gz
+    KO_rem_mid_rep3:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-041_GGTGCGAA_L002_R1.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-041_GGTGCGAA_L003_R1.fastq.gz
+    KO_rem_hi_rep3:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-042_GTACGCAA_L003_R1.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-042_GTACGCAA_L002_R1.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-042_GTACGCAA_L003_R1.fastq.gz
+# Provide paired fastq files if pair-end sequencing data is available.
+paired:
+    # provide a label and a paths to the paired fastq files for each sample
+#    KO_con_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-001_GAGCTGAA_L002_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-001_GAGCTGAA_L004_R2.fastq.gz
+#    KO_doxil_low_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-002_GATAGACA_L004_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-002_GATAGACA_L002_R2.fastq.gz
+#    KO_doxil_hi_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-003_GCCACATA_L004_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-003_GCCACATA_L002_R2.fastq.gz
+#    KO_Am_low_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-004_GCGAGTAA_L002_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-004_GCGAGTAA_L004_R2.fastq.gz
+#    KO_Am_hi_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-005_GCTAACGA_L002_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-005_GCTAACGA_L004_R2.fastq.gz
+#    KO_acla_low_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-006_GCTCGGTA_L004_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-006_GCTCGGTA_L002_R2.fastq.gz
+#    KO_acla_hi_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-007_GGAGAACA_L004_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-007_GGAGAACA_L002_R2.fastq.gz
+#    KO_dime_low_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-008_GGTGCGAA_L004_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-008_GGTGCGAA_L002_R2.fastq.gz
+#    KO_dime_hi_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-009_GTACGCAA_L004_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-009_GTACGCAA_L002_R2.fastq.gz
+#    KO_sunit_low_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-010_GTCGTAGA_L002_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-010_GTCGTAGA_L004_R2.fastq.gz
+#    KO_sunit_hi_rep1:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-011_CTATTCAA_L002_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL7CFDSX2_104355-002-011_CTATTCAA_L004_R2.fastq.gz
+#    KO_con_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-012_GAGCTGAA_L002_R2.fastq.gz
+#    KO_doxil_low_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-013_GATAGACA_L002_R2.fastq.gz
+#    KO_doxil_hi_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-014_GCCACATA_L002_R2.fastq.gz
+#    KO_Am_low_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-015_GCGAGTAA_L002_R2.fastq.gz
+#    KO_Am_hi_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-016_GCTAACGA_L002_R2.fastq.gz
+#    KO_acla_low_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-017_GCTCGGTA_L002_R2.fastq.gz
+#    KO_acla_hi_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-018_GGAGAACA_L002_R2.fastq.gz
+#    KO_dime_low_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-019_GGTGCGAA_L002_R2.fastq.gz
+#    KO_dime_hi_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-020_GTACGCAA_L002_R2.fastq.gz
+#    KO_sunit_low_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-021_GTCGTAGA_L002_R2.fastq.gz
+#    KO_sunit_hi_rep2:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-022_CTATTCAA_L003_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-022_CTATTCAA_L002_R2.fastq.gz
+#    KO_con_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-023_GAGCTGAA_L001_R2.fastq.gz
+#    KO_doxil_low_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-024_GATAGACA_L003_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-024_GATAGACA_L001_R2.fastq.gz
+#    KO_doxil_hi_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-025_GCCACATA_L001_R2.fastq.gz
+#    KO_Am_low_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-026_GCGAGTAA_L001_R2.fastq.gz
+#    KO_Am_hi_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-027_GCTAACGA_L001_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-027_GCTAACGA_L003_R2.fastq.gz
+#    KO_acla_low_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-028_GCTCGGTA_L001_R2.fastq.gz
+#    KO_acla_hi_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-029_GGAGAACA_L001_R2.fastq.gz
+#    KO_dime_low_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-030_GGTGCGAA_L003_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-030_GGTGCGAA_L001_R2.fastq.gz
+#    KO_dime_hi_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-031_GTACGCAA_L001_R2.fastq.gz
+#    KO_sunit_low_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-032_GTCGTAGA_L003_R2.fastq.gz
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-032_GTCGTAGA_L001_R2.fastq.gz
+#    KO_sunit_hi_rep3:
+#        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HJMT2DSX2_104355-002-033_CTATTCAA_L001_R2.fastq.gz
+    KO_rem_low_rep1:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-034_GAGCTGAA_L002_R2.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-034_GAGCTGAA_L003_R2.fastq.gz
+    KO_rem_mid_rep1:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-035_GATAGACA_L003_R2.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-035_GATAGACA_L002_R2.fastq.gz
+    KO_rem_hi_rep1:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-036_GCCACATA_L002_R2.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-036_GCCACATA_L003_R2.fastq.gz
+    KO_rem_low_rep2:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-037_GCGAGTAA_L003_R2.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-037_GCGAGTAA_L002_R2.fastq.gz
+    KO_rem_mid_rep2:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-038_GCTAACGA_L003_R2.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-038_GCTAACGA_L002_R2.fastq.gz
+    KO_rem_hi_rep2:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-039_GCTCGGTA_L003_R2.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-039_GCTCGGTA_L002_R2.fastq.gz
+    KO_rem_low_rep3:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-040_GGAGAACA_L003_R2.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-040_GGAGAACA_L002_R2.fastq.gz
+    KO_rem_mid_rep3:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-041_GGTGCGAA_L002_R2.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-041_GGTGCGAA_L003_R2.fastq.gz
+    KO_rem_hi_rep3:
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HKWKCDSX2_104355-002-042_GTACGCAA_L003_R2.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-042_GTACGCAA_L002_R2.fastq.gz
+        - /exports/chemimm/minkang/data/fastqs_20211005_GenomeScan_104355-002/HL5YWDSX2_104355-002-042_GTACGCAA_L003_R2.fastq.gz
+
+
+# Specify whether report valid alignments per pair (count when both end reads mapped), when paired fastq files are provided .
+countpair: false
+
+# Instead of providing fastq files, you can also provide your own normalized (or unnormalized) count matrix (Cannot set "samples" as valid at the same time!).
+# If you do not want MAGeCK to normalize the counts, make sure to set up norm_methd to none
+# Support QC from count matrix
+# counts: rawcount/rawcount.txt
+
+# Provide mageck count --day0-label (optional). Multiple labels should be seperated with comma.
+# day0label: plasmid
+
+
+# Provide normalization methods (none, control, median) and a list of negative control sgrnas (if norm_method=control). 
+# These parameters will be applied to mageck_count, mageck_rra and mageck_mle modules.
+# Note that if this option is not specified a default median normalization will be used.
+norm_method: control
+# control_sgrna: lib/hg19_library_1.aavs1.txt
+additional_rra_parameter: --normcounts-to-file --adjust-method fdr --remove-zero treatment --gene-lfc-method alphamedian --gene-test-fdr-threshold 0.05 --sort-criteria "pos" --pdf-report
+#additional_rra_parameter: --sort-criteria "pos" --pdf-report
+
+# Run mle with multi-thread. Default thread number is 1.
+# When this parameter is set (e.g., threads: 4), make sure to specify the cores in running snakemake (snakemake --cores 4)
+# threads: 4
+
+# Provide a batch matrix if the samples need to be batch corrected (optional).
+# The format should be as follows (tab-separated):
+# sample          batch   covariate 1 ...
+# Sample 1        1       0           ...
+# Sample 2        2       0           ...
+# Sample 3        2       1           ...
+#
+# The first column must refer to the samples defined above.
+# batchmatrix: path/to/batchmatrix.txt
+#
+
+# copy number variation correction
+# Setting correct_cnv to true will allow CNV correction for both RRA and MLE
+# to overwrite this option, you can use snakemake command line:
+# snakemake --config correct_cnv=true cnv_norm=target/cnv/file
+# correct_cnv: false
+# cnv_norm: /dev/null
+
+# the following cnv_cell_line is only required when performing CNV correction in RRA
+# it's not required for MLE
+# cnv_cell_line: K562
+
+# Configuration of experiments.
+# An experiment defines the comparison that shall be analyzed with MAGeCK.
+# You can define as many experiments as you want.
+# You can define either MAGeCK-RRA or MAGeCK-MLE experiments, but cannot define both in a single configuration file.
+experiments:
+    # provide a descriptive name for your experiment (it will show up in VISPR)
+    "mle":
+        # This is a MAGeCK-MLE experiment.
+        # Here, users can either specify a day0label, or a design matrix file (see http://mageck.sourceforge.net for details).
+        # if day0label is specified, use an empty file (like /dev/null) as a design matrix file.
+        # Sample names in the design matrix must refer to the samples defined above.
+        designmatrix: /dev/null
+    "rra":
+        # This is a MAGeCK-RRA experiment.
+        # You must specify treatment and control samples.
+        # The sample names must refer to the samples defined above in the
+        # samples section.
+        treatment:
+#            - KO_doxil_low_rep1
+#            - KO_doxil_hi_rep1
+#            - KO_Am_low_rep1
+#            - KO_Am_hi_rep1
+#            - KO_acla_low_rep1
+#            - KO_acla_hi_rep1
+#            - KO_dime_low_rep1
+#            - KO_dime_hi_rep1
+#            - KO_sunit_low_rep1
+#            - KO_sunit_hi_rep1
+#            - KO_doxil_low_rep2
+#            - KO_doxil_hi_rep2
+#            - KO_Am_low_rep2
+#            - KO_Am_hi_rep2
+#            - KO_acla_low_rep2
+#            - KO_acla_hi_rep2
+#            - KO_dime_low_rep2
+#            - KO_dime_hi_rep2
+#            - KO_sunit_low_rep2
+#            - KO_sunit_hi_rep2
+#            - KO_doxil_low_rep3
+#            - KO_doxil_hi_rep3
+#            - KO_Am_low_rep3
+#            - KO_Am_hi_rep3
+#            - KO_acla_low_rep3         
+#            - KO_acla_hi_rep3
+#            - KO_dime_low_rep3
+#            - KO_dime_hi_rep3
+#            - KO_sunit_low_rep3
+#            - KO_sunit_hi_rep3
+            - KO_rem_low_rep1
+            - KO_rem_hi_rep1
+            - KO_rem_low_rep2
+            - KO_rem_hi_rep2
+            - KO_rem_low_rep3
+            - KO_rem_hi_rep3
+        control:
+            - KO_rem_mid_rep1
+            - KO_rem_mid_rep2
+            - KO_rem_mid_rep3
+#            - KO_con_rep1
+#            - KO_con_rep2
+#            - KO_con_rep3
