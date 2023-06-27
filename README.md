@@ -1,0 +1,3 @@
+# transporter_CRISPR_screen_pipeline
+CRISPR activation screening
+CRISPR knockout screening
